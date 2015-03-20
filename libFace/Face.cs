@@ -1,6 +1,6 @@
 using System;
 
-namespace faceengine
+namespace libFace
 {
 	public struct Face
 	{
