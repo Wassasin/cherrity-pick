@@ -64,7 +64,7 @@ namespace libengagement
 
 			foreach (EngagementSlice es in slices)
 				foreach (SubjectSlice ss in subjectSlices)
-					subjectacc [ss.subject] += es.engagement * InclusionRatio (es.slice, ss.slice);
+					subjectacc [ss.subject] += ss.weight * es.engagement * InclusionRatio (es.slice, ss.slice);
 
 			var verdictacc = new Dictionary<string, float>();
 			foreach (string verdict in verdicts)
