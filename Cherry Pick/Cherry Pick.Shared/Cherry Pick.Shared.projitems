@@ -16,4 +16,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="$(MSBuildThisFileDirectory)You Lied to me!.mp4" />
+  </ItemGroup>
 </Project>

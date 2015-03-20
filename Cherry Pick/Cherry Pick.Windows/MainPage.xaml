@@ -8,6 +8,6 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
+        <MediaElement Source="You Lied to me!.mp4" AreTransportControlsEnabled="True" AutoPlay="False"/>
     </Grid>
 </Page>
