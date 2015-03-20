@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cherry Pick.WindowsPhone", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "face-engine", "Cherry Pick\face-engine\face-engine.csproj", "{218C85B3-655E-4099-A2A9-5B4911551587}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "libengagement", "libengagement\libengagement.csproj", "{F83A2743-87DA-4A80-AE98-1CB18D8E58C4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +89,22 @@ Global
 		{BBFD6B24-C7DC-4657-9DF5-221D97AACE38}.Release|x86.ActiveCfg = Release|x86
 		{BBFD6B24-C7DC-4657-9DF5-221D97AACE38}.Release|x86.Build.0 = Release|x86
 		{BBFD6B24-C7DC-4657-9DF5-221D97AACE38}.Release|x86.Deploy.0 = Release|x86
+		{F83A2743-87DA-4A80-AE98-1CB18D8E58C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F83A2743-87DA-4A80-AE98-1CB18D8E58C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F83A2743-87DA-4A80-AE98-1CB18D8E58C4}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{F83A2743-87DA-4A80-AE98-1CB18D8E58C4}.Debug|ARM.Build.0 = Debug|Any CPU
+		{F83A2743-87DA-4A80-AE98-1CB18D8E58C4}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{F83A2743-87DA-4A80-AE98-1CB18D8E58C4}.Debug|x64.Build.0 = Debug|Any CPU
+		{F83A2743-87DA-4A80-AE98-1CB18D8E58C4}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F83A2743-87DA-4A80-AE98-1CB18D8E58C4}.Debug|x86.Build.0 = Debug|Any CPU
+		{F83A2743-87DA-4A80-AE98-1CB18D8E58C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F83A2743-87DA-4A80-AE98-1CB18D8E58C4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F83A2743-87DA-4A80-AE98-1CB18D8E58C4}.Release|ARM.ActiveCfg = Release|Any CPU
+		{F83A2743-87DA-4A80-AE98-1CB18D8E58C4}.Release|ARM.Build.0 = Release|Any CPU
+		{F83A2743-87DA-4A80-AE98-1CB18D8E58C4}.Release|x64.ActiveCfg = Release|Any CPU
+		{F83A2743-87DA-4A80-AE98-1CB18D8E58C4}.Release|x64.Build.0 = Release|Any CPU
+		{F83A2743-87DA-4A80-AE98-1CB18D8E58C4}.Release|x86.ActiveCfg = Release|Any CPU
+		{F83A2743-87DA-4A80-AE98-1CB18D8E58C4}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Cherry Pick\Cherry Pick.Shared\Cherry Pick.Shared.projitems*{113266d4-a264-4044-b76b-1396d027e6ad}*SharedItemsImports = 13
