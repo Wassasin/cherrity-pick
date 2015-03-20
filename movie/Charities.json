@@ -1,0 +1,23 @@
+{ "charities": [
+	{
+		"name": "WNF",
+		"subjects": [
+			{ "subject": "Nature",   "weight": 0.8 },
+			{ "subject": "Animals",  "weight": 1   }
+		]
+	},
+	{
+		"name": "Unicef",
+		"subjects": [
+			{ "subject": "Children", "weight": 1   },
+			{ "subject": "Africa",   "weight": 0.5 },
+			{ "subject": "Health",   "weight": 0.5 }
+		]
+	},
+	{
+		"name": "Hartstichting",
+		"subjects": [
+			{ "subject": "Health",   "weights": 1 }
+		]
+	}
+]}

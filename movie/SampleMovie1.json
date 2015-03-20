@@ -1,0 +1,43 @@
+{ "sections": [
+	{
+		"start": "0m00s",
+		"end": "0m29s",
+		"subjects": [
+			{ "subject": "Nature", "weight" : 1 },
+			{ "subject": "Planet", "weight" : 1 }
+		]
+	},
+	{
+		"start": "0m30s",
+		"end": "1m00s",
+		"subjects": [
+			{ "subject": "Climbing", "weight" : 1 },
+			{ "subject": "City",     "weight" : 1 }
+		]
+	},
+	{
+		"start": "1m00s",
+		"end": "1m30s",
+		"subjects": [
+			{ "subject": "Africa",   "weight" : 1 },
+			{ "subject": "Children", "weight" : 1 },
+			{ "subject": "Health",   "weight" : 1 }
+		]
+	},
+	{
+		"start": "1m30s",
+		"end": "1m56s",
+		"subjects": [
+			{ "subject": "Africa",   "weight" : 1 },
+			{ "subject": "Children", "weight" : 0.5 },
+			{ "subject": "Health",   "weight" : 1 }
+		]
+	},
+	{
+		"start": "1m57s",
+		"end": "2m30s",
+		"subjects": [
+			{ "subject": "Space",   "weight" : 1 }
+		]
+	}
+]}
