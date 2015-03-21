@@ -5,8 +5,11 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
+using Windows.ApplicationModel;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -24,9 +27,6 @@ namespace Cherry_Pick
     /// </summary>
     public sealed partial class BasicPage1 : Page
     {
-
-        String _mood;
-
         private NavigationHelper navigationHelper;
         private ObservableDictionary defaultViewModel = new ObservableDictionary();
 
@@ -94,18 +94,64 @@ namespace Cherry_Pick
         /// The navigation parameter is available in the LoadState method 
         /// in addition to page state preserved during an earlier session.
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        private async Task AggregateResults(List<Task<List<PersonShot>>> tasks)
         {
-            string x = e.Parameter.ToString();
-            mood = "Mood: " + x;
-            Debug.WriteLine(x);
-            moodText.Text = this.mood;
+            var ess = new List<libengagement.EngagementSlice>();
+
+            foreach (var task in tasks)
+            {
+                List<PersonShot> persons = await task;
+                foreach (var ps in persons)
+                {
+                    var es = new libengagement.EngagementSlice();
+                    var slice = new libengagement.Slice();
+
+                    slice.start = ps.time - 1.0f;
+                    slice.end = ps.time + 9.0f;
+
+                    es.slice = slice;
+                    es.engagement = ps.person.ToEngagement();
+
+                    ess.Add(es);
+                }
+            }
+
+            var b = new libengagement.Blackbox();
+
+            var vmstor = await StorageFile.GetFileFromPathAsync(Package.Current.InstalledLocation.Path + @"\Charities.json");
+            var vms = libengagement.VerdictMapsParser.Parse(await Windows.Storage.FileIO.ReadTextAsync(vmstor));
+            foreach (var vm in vms)
+                b.AddVerdictMap(vm);
+
+            var ssstor = await StorageFile.GetFileFromPathAsync(Package.Current.InstalledLocation.Path + @"\SampleMovie1.json");
+            var sss = libengagement.SubjectSlicesParser.Parse(await Windows.Storage.FileIO.ReadTextAsync(ssstor));
+            foreach (var ss in sss)
+                b.AddSubjectSlice(ss);
+
+            var evs = b.Run(ess);
+
+            await this.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.High, () => {
+                if (ess.Count > 0)
+                {
+                    if (evs[0].engagement > 0.0f)
+                        moodText.Text = "Please donate to your best matches:\n\n";
+                    else
+                        moodText.Text = "It's recommended not to donate:\n\n";
+
+                    foreach (var ev in evs)
+                        moodText.Text += String.Format("{0} ({1})\n\n", ev.verdict, ev.engagement);
+                }
+                else
+                    moodText.Text = "Could not capture good images. Please try again.";
+            });
         }
 
-        public string mood
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            get { return this._mood; }
-            set { this._mood = value; }
+            var tasks = (List<Task<List<PersonShot>>>) e.Parameter;
+            Task.Run(() => AggregateResults(tasks));
+            
+            moodText.Text = "Mood: awaiting result";
         }
 
         #endregion

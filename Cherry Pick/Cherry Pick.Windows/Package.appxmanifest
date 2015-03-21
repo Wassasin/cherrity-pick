@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest" xmlns:m2="http://schemas.microsoft.com/appx/2013/manifest">
-  <Identity Name="a5ed8d44-5376-4967-973b-9354f8766709" Publisher="CN=dbren_000" Version="1.0.0.9" />
+  <Identity Name="a5ed8d44-5376-4967-973b-9354f8766709" Publisher="CN=dbren_000" Version="1.0.0.16" />
   <Properties>
     <DisplayName>Cherry Pick.Windows</DisplayName>
     <PublisherDisplayName>dbren_000</PublisherDisplayName>

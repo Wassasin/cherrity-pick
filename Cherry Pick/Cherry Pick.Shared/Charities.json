@@ -1,0 +1,49 @@
+{ "charities": [
+	{
+		"name": "WNF",
+		"subjects": [
+			{ "subject": "Nature",   "weight": 0.8 },
+			{ "subject": "Animals",  "weight": 1   }
+		]
+	},
+	{
+		"name": "Unicef",
+		"subjects": [
+			{ "subject": "Children", "weight": 1   },
+			{ "subject": "Africa",   "weight": 0.5 },
+			{ "subject": "Health",   "weight": 0.5 }
+		]
+	},
+	{
+		"name": "Hartstichting",
+		"subjects": [
+			{ "subject": "Health",   "weight": 1 }
+		]
+	},
+	{
+		"name": "SpaceX",
+		"subjects": [
+			{ "subject": "Space", "weight": 1 }
+		]
+	},
+	{
+		"name": "NKBV",
+		"subjects": [
+			{ "subject": "Climbing", "weight": 1 },
+			{ "subject": "Planet", "weight": 0.3 }
+		]
+	},
+	{
+		"name": "VVV",
+		"subjects": [
+			{ "subject": "City", "weight": 1 }
+		]
+	},
+	{
+		"name": "KiKa",
+		"subjects": [
+			{ "subject": "Children", "weight": 1 },
+			{ "subject": "Health", "weight": 1 }
+		]
+	}
+]}

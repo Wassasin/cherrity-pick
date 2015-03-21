@@ -34,19 +34,13 @@ namespace Cherry_Pick
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        private string mood;
-        private List<Task<List<libFace.Person>>> tasks;
-
+        private MediaCapture captureManager;
+        private List<Task<List<PersonShot>>> tasks;
         private static DispatcherTimer aTimer;
 
-
-        async void goToResults()
+        void goToResults()
         {
-            foreach(var task in tasks)
-            {
-                List<libFace.Person> list = await task;
-            }
-            this.Frame.Navigate(typeof(BasicPage1), mood);
+            this.Frame.Navigate(typeof(BasicPage1), tasks);
         }
 
         void buttonClick(object sender, RoutedEventArgs e)
@@ -56,68 +50,90 @@ namespace Cherry_Pick
 
         void mediaEnded(object sender, RoutedEventArgs e)
         {
+            aTimer.Stop();
             goToResults();
         }
 
-        async void everySecond<TEventArgs>(object sender, TEventArgs e)
+        void everySecond<TEventArgs>(object sender, TEventArgs e)
         {
-            tasks.Add(this.TakePicture());
+            tasks.Add(Task.Run<List<PersonShot>>(() => { return this.TakePicture(); } ));
         }
 
-        public MainPage()
+        private async static Task<MediaCapture> InitCamera()
         {
-            this.InitializeComponent();
-            tasks = new List<Task<List<libFace.Person>>>();
-            aTimer = new DispatcherTimer();
-            aTimer.Interval = TimeSpan.FromMilliseconds(1000);
-            aTimer.Tick += new EventHandler<object>(everySecond);
-            aTimer.Start();
-        }
-
-        public async Task<List<libFace.Person>> TakePicture()
-        {
+            MediaCapture captureManager = new MediaCapture();
             var videoDevices = await DeviceInformation.FindAllAsync(DeviceClass.VideoCapture);
             var frontCamera = videoDevices.FirstOrDefault(
                 item => item.EnclosureLocation != null
                 && item.EnclosureLocation.Panel == Windows.Devices.Enumeration.Panel.Front);
-            MediaCapture captureManager = new MediaCapture();
 
+            var captureSettings = new MediaCaptureInitializationSettings { };
+            if (frontCamera != null)
+                captureSettings.VideoDeviceId = frontCamera.Id;
+
+            captureSettings.PhotoCaptureSource = Windows.Media.Capture.PhotoCaptureSource.Auto;
+            await captureManager.InitializeAsync(captureSettings);
+            
+            if(captureManager.VideoDeviceController.ExposureControl.Supported)
+                await captureManager.VideoDeviceController.ExposureControl.SetAutoAsync(true);
+
+            captureManager.VideoDeviceController.Brightness.TrySetAuto(true);
+
+            return captureManager;
+        }
+
+        public MainPage()
+        {
+            InitCamera().ContinueWith(cm =>
+            {
+                this.captureManager = cm.Result;
+                this.InitializeComponent();
+                tasks = new List<Task<List<PersonShot>>>();
+                aTimer = new DispatcherTimer();
+                aTimer.Interval = TimeSpan.FromMilliseconds(10000);
+                aTimer.Tick += new EventHandler<object>(everySecond);
+                aTimer.Start();
+            }, TaskScheduler.FromCurrentSynchronizationContext());
+        }
+
+        public async Task<List<PersonShot>> TakePicture()
+        {
             ImageEncodingProperties imgFormat = ImageEncodingProperties.CreateJpeg();
 
             // create storage file in local app storage
-            try {
-                var file = await ApplicationData.Current.LocalFolder.CreateFileAsync(
-                    "TestPhoto.jpg",
-                    CreationCollisionOption.GenerateUniqueName
-                );
-                var stream = new InMemoryRandomAccessStream();
+            var file = await ApplicationData.Current.LocalFolder.CreateFileAsync(
+                "TestPhoto.jpg",
+                CreationCollisionOption.GenerateUniqueName
+            );
+            var stream = new InMemoryRandomAccessStream();
 
-                var s = await file.OpenAsync(Windows.Storage.FileAccessMode.ReadWrite);
+            await captureManager.CapturePhotoToStreamAsync(imgFormat, stream);
+            float time = -1.0f;
+            await this.video.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.High, () => {
+                time = (float)this.video.Position.TotalSeconds;
+            });
 
-                if (frontCamera != null)
-                {
-                    var captureSettings = new MediaCaptureInitializationSettings { VideoDeviceId = frontCamera.Id };
-                    await captureManager.InitializeAsync(captureSettings);
-                }
-                //await captureManager.VideoDeviceController.ExposureControl.SetAutoAsync(true);
-                await captureManager.CapturePhotoToStreamAsync(imgFormat, stream);
+            byte[] b = new byte[stream.Size];
+            stream.Seek(0);
+            stream.AsStream().Read(b, 0, b.Length);
 
-                byte[] b = new byte[stream.Size];
-                stream.Seek(0);
-                await stream.AsStream().ReadAsync(b, 0, b.Length);
+            using (var s = await file.OpenAsync(Windows.Storage.FileAccessMode.ReadWrite))
                 await s.WriteAsync(b.AsBuffer());
                 
-                libFace.API api = new libFace.API(
-                    "e3445ac4dc914e468311861668611d7c",
-                    "53ae1674d8334c6ca527277b2049ee5d"
-                );
+            libFace.API api = new libFace.API(
+                "e3445ac4dc914e468311861668611d7c",
+                "53ae1674d8334c6ca527277b2049ee5d"
+            );
 
-                return api.Process(b);
-            } catch (Exception e)
+            var result = new List<PersonShot>();
+            foreach(var person in api.Process(b))
             {
-                Debug.WriteLine(e.ToString());
-                throw e;
+                PersonShot ps = new PersonShot();
+                ps.person = person;
+                ps.time = time;
+                result.Add(ps);
             }
+            return result;
         }
     }
 }

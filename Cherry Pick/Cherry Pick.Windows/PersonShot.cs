@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace Cherry_Pick
 {
-
-    class Class1
+    public struct PersonShot
     {
+        public libFace.Person person;
+        public float time;
     }
 }

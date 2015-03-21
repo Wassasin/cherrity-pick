@@ -113,7 +113,6 @@
     <Compile Include="BasicPage1.xaml.cs">
       <DependentUpon>BasicPage1.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Class1.cs" />
     <Compile Include="Common\NavigationHelper.cs" />
     <Compile Include="Common\ObservableDictionary.cs" />
     <Compile Include="Common\RelayCommand.cs" />
@@ -121,7 +120,11 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PersonShot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ResultsPage.xaml.cs">
+      <DependentUpon>ResultsPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -144,8 +147,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="ResultsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\libengagement\libengagement.csproj">
+      <Project>{8db2f4cf-c11a-4dff-ba5b-6fe791ecf20c}</Project>
+      <Name>libengagement</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\libFace\libFace.csproj">
       <Project>{5f03caad-7900-4ddc-98aa-5595a66857df}</Project>
       <Name>libFace</Name>

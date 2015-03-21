@@ -12,7 +12,7 @@
             <ColumnDefinition Width="713*"/>
             <ColumnDefinition Width="653*"/>
         </Grid.ColumnDefinitions>
-        <MediaElement Name="video" MediaEnded="mediaEnded" Source="You Lied to me!.mp4" AreTransportControlsEnabled="True" AutoPlay="True" IsFullWindow="True" Margin="281,252,30,317" RenderTransformOrigin="0.5,0.5">
+        <MediaElement Name="video" MediaEnded="mediaEnded" Source="SampleMovie1.mp4" AreTransportControlsEnabled="True" AutoPlay="True" IsFullWindow="True" Margin="281,252,30,317" RenderTransformOrigin="0.5,0.5">
             <MediaElement.RenderTransform>
                 <CompositeTransform ScaleY="1" ScaleX="1"/>
             </MediaElement.RenderTransform>
