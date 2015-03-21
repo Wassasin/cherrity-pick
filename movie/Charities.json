@@ -17,7 +17,7 @@
 	{
 		"name": "Hartstichting",
 		"subjects": [
-			{ "subject": "Health",   "weights": 1 }
+			{ "subject": "Health",   "weight": 1 }
 		]
 	}
 ]}

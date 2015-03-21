@@ -9,6 +9,7 @@ namespace libengagement
 		private static VerdictMap ParseVerdictMap(JToken verdictmap)
 		{
 			var result = new VerdictMap ();
+			result.maps = new Dictionary<string, float> ();
 
 			result.verdict = verdictmap ["name"].Value<string> ();
 

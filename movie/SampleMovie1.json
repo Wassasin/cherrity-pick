@@ -28,9 +28,9 @@
 		"start": "1m30s",
 		"end": "1m56s",
 		"subjects": [
-			{ "subject": "Africa",   "weight" : 1 },
-			{ "subject": "Children", "weight" : 0.5 },
-			{ "subject": "Health",   "weight" : 1 }
+			{ "subject": "Nature",   "weight" : 1 },
+			{ "subject": "Planet", "weight" : 0.5 },
+			{ "subject": "Animals",   "weight" : 1 }
 		]
 	},
 	{

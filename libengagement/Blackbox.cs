@@ -5,31 +5,26 @@ namespace libengagement
 {
 	public class Blackbox
 	{
-		private SortedSet<string> subjects;
-		private SortedSet<string> verdicts;
+		private SortedSet<string> subjects = new SortedSet<string>();
+		private SortedSet<string> verdicts = new SortedSet<string>();
 
-		private List<SubjectSlice> subjectSlices;
-		private List<VerdictMap> verdictMaps;
+		private List<SubjectSlice> subjectSlices = new List<SubjectSlice> ();
+		private List<VerdictMap> verdictMaps = new List<VerdictMap>();
 
 		public Blackbox() {}
 
-		public void AddSubject(string subject)
-		{
-			subjects.Add (subject);
-		}
-
-		public void AddVerdict(string verdict)
-		{
-			verdicts.Add (verdict);
-		}
-
 		public void AddSubjectSlice(SubjectSlice ss)
 		{
+			subjects.Add (ss.subject);
 			subjectSlices.Add (ss);
 		}
 
 		public void AddVerdictMap(VerdictMap vm)
 		{
+			verdicts.Add (vm.verdict);
+			foreach (var kvp in vm.maps)
+				subjects.Add (kvp.Key);
+
 			verdictMaps.Add (vm);
 		}
 
@@ -72,7 +67,8 @@ namespace libengagement
 
 			foreach (VerdictMap vm in verdictMaps)
 				foreach (var kvp in subjectacc)
-					verdictacc [vm.verdict] += vm.maps [kvp.Key] * kvp.Value;
+					if(vm.maps.ContainsKey(kvp.Key))
+						verdictacc [vm.verdict] += vm.maps [kvp.Key] * kvp.Value;
 
 			var result = new List<EngagementVerdict>();
 			foreach(var kvp in verdictacc)
