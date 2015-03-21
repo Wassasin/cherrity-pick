@@ -7,7 +7,7 @@ namespace tests
 		public static void Main (string[] args)
 		{
 			var bt = new BlackboxTest ();
-			bt.Everything ();
+			bt.RunSequenceTest ();
 		}
 	}
 }

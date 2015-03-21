@@ -29,7 +29,7 @@ namespace libengagement
 		}
 
 		/* Returns ratio between length of inclusion and length of engagement */
-		private static float InclusionRatio(Slice engagement, Slice subject)
+		public static float InclusionRatio(Slice engagement, Slice subject)
 		{
 			Slice newSlice;
 			if (engagement.start > subject.end || engagement.end < subject.start)
