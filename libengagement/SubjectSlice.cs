@@ -6,6 +6,7 @@ namespace libengagement
 	{
 		public string subject;
 		public Slice slice;
+		public float weight;
 	}
 }
 
