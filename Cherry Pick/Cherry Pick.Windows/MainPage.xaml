@@ -7,7 +7,16 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <MediaElement Source="You Lied to me!.mp4" AreTransportControlsEnabled="True" AutoPlay="False"/>
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Margin="-10,77,10,-10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="713*"/>
+            <ColumnDefinition Width="653*"/>
+        </Grid.ColumnDefinitions>
+        <MediaElement Name="video" MediaEnded="mediaEnded" Source="You Lied to me!.mp4" AreTransportControlsEnabled="True" AutoPlay="True" IsFullWindow="True" Margin="281,252,30,317" RenderTransformOrigin="0.5,0.5">
+            <MediaElement.RenderTransform>
+                <CompositeTransform ScaleY="1" ScaleX="1"/>
+            </MediaElement.RenderTransform>
+        </MediaElement>
+        <Button Click="buttonClick" x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="556,-65,0,0" VerticalAlignment="Top" Grid.Column="1"/>
     </Grid>
 </Page>
